@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Beginners</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet"> 
+    <style>
+        body {
+            margin: 5%; 
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <img src="image/logo.png" width="80">
+            <!-- v-once : data secara live tidak bisa diubah lagi || data sebelumnya tidak akan berubah kalau nilai ini sudah tetap tidak bisa diubah lagi -->
+            <h1>{{ getname() }}</h1>
+            <p>{{ message }}</p>
+            <!-- template syntax dari vue -->
+            <p>{{ isactive ? 'success' : 'danger' }}</p>
+        </header>
+    
+        <footer id="footer">
+            <p>copyright 2020</p>
+        </footer>  
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'Naufal Akmal',
+                umur: 17,
+                message: "Hello Akmal!",
+                isactive: true
+            },
+            methods: {
+                getname: function () {
+                    return `Hello, ${this.name}`;
+                },
+                ubahNama: function (namaBaru) {
+                    this.name = namaBaru;
+                    return this.getname();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

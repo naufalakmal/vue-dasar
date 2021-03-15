@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    
+</body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet"> 
+    <style>
+        body {
+            margin: 5%; 
+            font-family: 'Quicksand', sans-serif;
+        }
+        
+        .active {
+            background: salmon;
+            border: 0;
+            padding: 5px;
+            color: white;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header-component nama="Admin 1" gambar="image/logo.png"></header-component>
+        <main>
+            <!-- single tag -->
+            <kelas v-bind:items="kelas" :input="kelasbaru" v-on:hapuskelas="hapuskelas"></kelas>
+            <home></home>
+        </main>
+     
+        <footer-component></footer-component>        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+        const Home = {
+            template: `<div>Home</div>`
+        }
+        Vue.component('header-component', {
+            props: ['nama', 'gambar'],
+            template:`
+                <header>
+                    <img :src="gambar" width="100">
+                    <h2>Data Component</h2>
+                    <p>{{ 'Hello, ' + nama }}</p>
+                </header>
+            `,
+            data: function () {
+                return {
+                    pesan: 'Hello, Component!'
+                }
+            }
+        })
+
+        Vue.component('footer-component', {
+            template: `
+                <footer id="footer">
+                    <p>copyright 2020</p>
+                </footer> 
+            `
+        })
+
+        Vue.component('kelas', {
+            props: ['items','input'],
+            template: `
+            <div>
+                <h3>Tambah Kelas.</h3>
+                <p>
+                    <input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="input">
+                </p>
+                
+                <hr>
+                <h3>Daftar Kelas ({{ items.length }})</h3>
+
+                <template v-if="items.length">
+                    <ul>
+                        <li v-for="(item, index) of items">{{ index + 1 }} - {{ item }}
+                            <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
+                        </li>
+                    </ul>
+                </template>
+                <li v-else>Kelas belum tersedia.</li>
+            </div>`,
+            data: function () {
+                return {
+                    
+                }
+            },
+            methods: {
+                submit: function (index) {
+                    this.kelas.unshift(this.kelasbaru);
+                    this.kelasbaru = "";
+                }
+            }
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            components: {
+                'home': Home
+            },
+            data: {
+                kelas: ['html','css'],
+                kelasbaru: ""
+            },
+            methods: {
+                hapuskelas: function (index) {
+                    console.log(this.kelas.splice(index,1));
+                }
+            },
+            computed: {
+
+            }
+        });
+    </script>
+</body>
+</html>
+</html>

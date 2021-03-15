@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Beginners</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet"> 
+    <style>
+        body {
+            margin: 5%; 
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <img src="image/logo.png" width="80">
+            <h1 v-text="name"></h1>
+            <img :src="gambar" width="500">
+            <p>{{ message }}</p>
+        </header>
+    
+        <footer id="footer">
+            <p>copyright 2020</p>
+        </footer>  
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script> -->
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'Naufal Akmal',
+                message: "Hello Akmal!",
+                quantity: 2,
+                namaDepan: "Muhammad",
+                namaBelakang: " Naufal Akmal",
+                bilangan: 4,
+                link: '<a href="">Klik Disini</a>',
+                gambar: 'image/3.jpg'
+            },
+            methods: {
+                getname: function () {
+                    return `Hello, ${this.name}`;
+                },
+                ubahNama: function (namaBaru) {
+                    this.name = namaBaru;
+                    return this.getname();
+                }
+            },
+            computed: {
+                totalBayar: function () {
+                    return this.quantity * 10000
+                },
+                namaLengkap: function () {
+                    return this.namaDepan + this.namaBelakang
+                },
+                infoBilangan: function () {
+                    return this.bilangan % 2 === 0 ? 'genap' : 'ganjil';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

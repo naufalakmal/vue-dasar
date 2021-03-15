@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Beginners</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet"> 
+    <style>
+        body {
+            margin: 5%; 
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <img src="image/logo.png" width="80">
+            <h1>{{ namaLengkap }}</h1>
+            <p>{{ message }}</p>
+        </header>
+    
+        <footer id="footer">
+            <p>copyright 2020</p>
+        </footer>  
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script> -->
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'Naufal Akmal',
+                message: "Hello Akmal!",
+                quantity: 2,
+                namaDepan: "Muhammad",
+                namaBelakang: " Naufal Akmal"
+            },
+            methods: {
+                getname: function () {
+                    return `Hello, ${this.name}`;
+                },
+                ubahNama: function (namaBaru) {
+                    this.name = namaBaru;
+                    return this.getname();
+                }
+            },
+            // Tambahan aja, kalau dari yg saya pelajari walau secara umum memang keduanya punya fungsi yg sama, perbedaan terbesar adalah computed value ter-cached oleh browser, sedangkan methods tidak. Jadi bila dalam sebuah view  muncul 100 variable yg sama, computed hanya menjalankan fungsi 1x saja (selama tidak ada perubahan), sedangkan methods akan menjalankan fungsi tersebut 100x.
+            computed: {
+                totalBayar: function () {
+                    return this.quantity * 10000
+                },
+                namaLengkap: function () {
+                    return this.namaDepan + this.namaBelakang
+                }
+            }
+        });
+    </script>
+</body>
+</html>
